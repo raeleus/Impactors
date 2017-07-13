@@ -1,0 +1,60 @@
+
+impactors-ui.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+button
+  rotate: false
+  xy: 514, 670
+  size: 138, 55
+  split: 17, 17, 0, 0
+  pad: 25, 25, 1, 1
+  orig: 138, 55
+  offset: 0, 0
+  index: -1
+font-export
+  rotate: false
+  xy: 1, 54
+  size: 158, 158
+  orig: 158, 158
+  offset: 0, 0
+  index: -1
+font-title-export
+  rotate: false
+  xy: 1, 214
+  size: 511, 511
+  orig: 511, 511
+  offset: 0, 0
+  index: -1
+player
+  rotate: false
+  xy: 1, 1
+  size: 61, 51
+  orig: 61, 51
+  offset: 0, 0
+  index: -1
+scroll-bar
+  rotate: false
+  xy: 514, 641
+  size: 27, 27
+  split: 2, 2, 2, 2
+  pad: 0, 0, 0, 0
+  orig: 27, 27
+  offset: 0, 0
+  index: -1
+scroll-pane
+  rotate: false
+  xy: 161, 160
+  size: 52, 52
+  split: 1, 1, 1, 1
+  orig: 52, 52
+  offset: 0, 0
+  index: -1
+white
+  rotate: false
+  xy: 654, 724
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
