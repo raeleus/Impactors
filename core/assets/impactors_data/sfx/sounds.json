@@ -1,0 +1,10 @@
+{
+	"sounds": {
+		"explosion":"explosion.wav",
+		"game-over":"game over.wav",
+		"intro":"begin.wav",
+		"laser":"pop.wav",
+		"thruster":"thruster.wav",
+		"ufo":"alien.wav"
+	}
+}

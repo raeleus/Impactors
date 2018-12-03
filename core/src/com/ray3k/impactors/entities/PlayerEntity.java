@@ -126,8 +126,8 @@ public class PlayerEntity extends Entity implements InputManager.KeyActionListen
 
     @Override
     public void destroy() {
-        getSFXexplosion().play();
-        getSFXgameover().play();
+        gameState.getSound("explosion").play();
+        gameState.getSound("game-over").play();
         new WhiteFlashEntity(gameState);
         new GameOverTimerEntity(gameState, 1.0f);
     }
@@ -151,7 +151,7 @@ public class PlayerEntity extends Entity implements InputManager.KeyActionListen
         if (!isDestroyed()) {
             if (key == Keys.SPACE) {
                 if (bulletTimer < 0) {
-                    getSFXlaser().play();
+                    gameState.getSound("laser").play();
                     bulletTimer = BULLET_DELAY;
 
                     BulletEntity bullet = new BulletEntity(gameState);
@@ -163,33 +163,9 @@ public class PlayerEntity extends Entity implements InputManager.KeyActionListen
                     bullet.setLifeCounter(BULLET_LIFE);
                 }
             } else if (key == Keys.UP) {
-                getSFXthruster().play();
+                gameState.getSound("thruster").play();
             }
         }
-    }
-    
-    private Sound getSFXlaser() {
-        Array<String> names = getCore().getSoundPacks().get(DATA_PATH + "/sfx-laser");
-        
-        return getCore().getAssetManager().get(names.random(), Sound.class);
-    }
-    
-    private Sound getSFXthruster() {
-        Array<String> names = getCore().getSoundPacks().get(DATA_PATH + "/sfx-thruster");
-        
-        return getCore().getAssetManager().get(names.random(), Sound.class);
-    }
-    
-    private Sound getSFXexplosion() {
-        Array<String> names = getCore().getSoundPacks().get(DATA_PATH + "/sfx-explosion");
-        
-        return getCore().getAssetManager().get(names.random(), Sound.class);
-    }
-    
-    private Sound getSFXgameover() {
-        Array<String> names = getCore().getSoundPacks().get(DATA_PATH + "/sfx-gameover");
-        
-        return getCore().getAssetManager().get(names.random(), Sound.class);
     }
     
     private TextureRegion getPlayerTexture() {

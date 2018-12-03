@@ -60,7 +60,7 @@ public class AlienEntity extends Entity implements Enemy {
         setOffsetY(getTextureRegion().getRegionHeight() / 2.0f);
         setMotion(MathUtils.random(MIN_SPEED, MAX_SPEED), MathUtils.random(360.0f));
         setCheckingCollisions(true);
-        getSFXalien().play();
+        GameState.gameState.getSound("ufo").play();
         bulletTimer = FIRING_RATE;
         
         if (gameState != null) {
@@ -115,7 +115,7 @@ public class AlienEntity extends Entity implements Enemy {
             }
 
             if (candidate != null) {
-                getSFXlaser().play();
+                gameState.getSound("laser").play();
                 bulletTimer = BULLET_DELAY;
 
                 BulletEntity bullet = new BulletEntity(gameState);
@@ -148,7 +148,7 @@ public class AlienEntity extends Entity implements Enemy {
                 other.dispose();
                 dispose();
                 gameState.addScore(10);
-                getSFXexplosion().play();
+                gameState.getSound("explosion").play();
             }
         } else if (other instanceof AsteroidEntity && !other.isDestroyed()) {
             dispose();
@@ -167,23 +167,5 @@ public class AlienEntity extends Entity implements Enemy {
             DustEntity dust = new DustEntity(gameState);
             dust.setPosition(getX(), getY());
         }
-    }
-    
-    private Sound getSFXexplosion() {
-        Array<String> names = getCore().getSoundPacks().get(DATA_PATH + "/sfx-explosion");
-        
-        return getCore().getAssetManager().get(names.random(), Sound.class);
-    }
-    
-    private Sound getSFXalien() {
-        Array<String> names = getCore().getSoundPacks().get(DATA_PATH + "/sfx-ufo");
-        
-        return getCore().getAssetManager().get(names.random(), Sound.class);
-    }
-    
-    private Sound getSFXlaser() {
-        Array<String> names = getCore().getSoundPacks().get(DATA_PATH + "/sfx-laser");
-        
-        return getCore().getAssetManager().get(names.random(), Sound.class);
     }
 }

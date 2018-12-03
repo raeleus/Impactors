@@ -125,7 +125,7 @@ public class AsteroidEntity extends Entity implements Enemy {
             ((BulletEntity) other).dispose();
             dispose();
             gameState.addScore(10);
-            getSFXexplosion().play();
+            gameState.getSound("explosion").play();
         }
     }
     
@@ -158,12 +158,6 @@ public class AsteroidEntity extends Entity implements Enemy {
             DustEntity dust = new DustEntity(gameState);
             dust.setPosition(getX(), getY());
         }
-    }
-    
-    private Sound getSFXexplosion() {
-        Array<String> names = getCore().getSoundPacks().get(DATA_PATH + "/sfx-explosion");
-        
-        return getCore().getAssetManager().get(names.random(), Sound.class);
     }
 
     public boolean isSpawnChildren() {

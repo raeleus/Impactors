@@ -35,11 +35,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.ray3k.impactors.Core;
-import static com.ray3k.impactors.Core.DATA_PATH;
 import com.ray3k.impactors.Entity;
 import com.ray3k.impactors.EntityManager;
 import com.ray3k.impactors.InputManager;
@@ -63,9 +61,11 @@ public class GameState extends State {
     private int difficulty;
     private final static float ALIEN_DELAY = 20.0f;
     private float alienTimer;
+    public static GameState gameState;
     
     public GameState(Core core) {
         super(core);
+        gameState = this;
     }
     
     @Override
@@ -103,7 +103,7 @@ public class GameState extends State {
         difficulty = 3;
         spawnAsteroids(difficulty, AsteroidEntity.Type.LARGE);
         
-        getSFXintro().play();
+        getSound("intro").play();
         
         alienTimer = ALIEN_DELAY;
     }
@@ -281,9 +281,7 @@ public class GameState extends State {
         }
     }
     
-    private Sound getSFXintro() {
-        Array<String> names = getCore().getSoundPacks().get(DATA_PATH + "/sfx-intro");
-        
-        return getCore().getAssetManager().get(names.random(), Sound.class);
+    public Sound getSound(String name) {
+        return getCore().getSounds().get(name);
     }
 }

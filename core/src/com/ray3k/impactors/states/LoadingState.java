@@ -2,6 +2,7 @@ package com.ray3k.impactors.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -20,9 +21,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.ray3k.impactors.Core;
+import static com.ray3k.impactors.Core.DATA_PATH;
 import com.ray3k.impactors.State;
 
 public class LoadingState extends State {
@@ -84,6 +88,13 @@ public class LoadingState extends State {
                 public boolean act(float delta) {
                     if (nextState != null) {
                         finishedLoading = true;
+                        
+                        JsonReader jsonReader = new JsonReader();
+                        JsonValue json = jsonReader.parse(Gdx.files.local(DATA_PATH + "/sfx/sounds.json"));
+                        for (JsonValue val : json.get("sounds").iterator()) {
+                            getCore().getSounds().put(val.name, getCore().getAssetManager().get(DATA_PATH + "/sfx/" + val.asString(), Sound.class));
+                        }
+                        
                         packPixmaps();
                         getCore().getStateManager().loadState(nextState);
                     }

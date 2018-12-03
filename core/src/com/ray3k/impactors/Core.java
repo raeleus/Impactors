@@ -34,7 +34,7 @@ public class Core extends ApplicationAdapter {
     private SpriteBatch spriteBatch;
     private PixmapPacker pixmapPacker;
     private ObjectMap<String, Array<String>> imagePacks;
-    private ObjectMap<String, Array<String>> soundPacks;
+    private ObjectMap<String,Sound> sounds;
     private long previous;
     private long lag;
     private TextureAtlas atlas;
@@ -86,10 +86,7 @@ public class Core extends ApplicationAdapter {
             imagePacks.put(DATA_PATH + "/" + name, new Array<String>());
         }
         
-        soundPacks = new ObjectMap<String, Array<String>>();
-        for (String name : new String[] {"sfx-explosion", "sfx-gameover", "sfx-intro", "sfx-laser", "sfx-thruster", "sfx-ufo"}) {
-            soundPacks.put(DATA_PATH + "/" + name, new Array<String>());
-        }
+        sounds = new ObjectMap<String, Sound>();
         
         stateManager = new StateManager(this);
         stateManager.addState("loading", new LoadingState("menu", this));
@@ -167,11 +164,10 @@ public class Core extends ApplicationAdapter {
             }
         }
         
-        for (String directory : soundPacks.keys()) {
-            FileHandle folder = Gdx.files.local(directory);
-            for (FileHandle file : folder.list()) {
+        FileHandle folder = Gdx.files.local(DATA_PATH + "/sfx/");
+        for (FileHandle file : folder.list()) {
+            if (file.extension().equalsIgnoreCase("wav")) {
                 assetManager.load(file.path(), Sound.class);
-                soundPacks.get(directory).add(file.path());
             }
         }
         
@@ -210,9 +206,9 @@ public class Core extends ApplicationAdapter {
     public ObjectMap<String, Array<String>> getImagePacks() {
         return imagePacks;
     }
-    
-    public ObjectMap<String, Array<String>> getSoundPacks() {
-        return soundPacks;
+
+    public ObjectMap<String, Sound> getSounds() {
+        return sounds;
     }
 
     public TextureAtlas getAtlas() {
