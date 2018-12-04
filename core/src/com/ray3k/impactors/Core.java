@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 
 public class Core extends ApplicationAdapter {
@@ -166,7 +167,7 @@ public class Core extends ApplicationAdapter {
         
         FileHandle folder = Gdx.files.local(DATA_PATH + "/sfx/");
         for (FileHandle file : folder.list()) {
-            if (file.extension().equalsIgnoreCase("wav")) {
+            if (file.name().toLowerCase(Locale.ROOT).matches(".+\\.((mp3)|(wav))")) {
                 assetManager.load(file.path(), Sound.class);
             }
         }
